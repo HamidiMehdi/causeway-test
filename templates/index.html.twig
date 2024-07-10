@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="jumbotron text-center">
+        <div class="container">
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <h2>Solde</h2>
+            <p class="lead text-muted">
+                Le solde actuel de la machine est de : {{ coffee_machine.wallet }}€
+            </p>
+
+            {{ form_start(form_wallet) }}
+                {{ form_row(form_wallet.wallet) }}
+                <button type="submit" class="btn btn-primary my-2">Ajoute cette sommes au solde de la machine</button>
+            {{ form_end(form_wallet) }}
+
+            <a href="{{ path('coffee-machine-reset-wallet') }}" class="btn btn-primary my-2">
+                Récupérer la totalité de la somme ({{ coffee_machine.wallet }}€)
+            </a>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            {{ form_start(form_order) }}
+            {{ form_row(form_order.drink) }}
+            {{ form_row(form_order.sugar) }}
+            {{ form_row(form_order.milk) }}
+            <button type="submit" class="btn btn-primary my-2">Valider</button>
+            {{ form_end(form_order) }}
+
+        </div>
+    </div>
+
+{% endblock %}
